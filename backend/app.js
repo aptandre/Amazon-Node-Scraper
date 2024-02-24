@@ -1,5 +1,5 @@
 import express from 'express';
-import { get } from 'axios';
+import axios from 'axios';
 import cheerio, { load } from 'cheerio';
 import cors from 'cors';
 
@@ -10,7 +10,7 @@ function scrapeData(html) {
     const $ = load(html);
     const products_list = [];
 
-    cheerio('div[data-component-type="s-search-result"]').each((index, element) => {
+    $('div[data-component-type="s-search-result"]').each((index, element) => {
         const title = $(element).find('h2').text().trim();
         const rating = $(element).find('span.a-icon-star-small').text().split(' ')[0];
         const reviews = $(element).find('span.a-size-base').text().trim();
@@ -30,7 +30,7 @@ app.get('/amazon-scraper/scrape', async (req, res) => {
 
     try {
 
-        const response = await get(url);
+        const response = await axios.get(url);
         const data = await scrapeData(response.data);
         res.json(data);
 
