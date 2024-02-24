@@ -7,14 +7,14 @@ document.getElementById('scrapeBtn').addEventListener('click', async () => {
         const data = await response.json();
 
         displayResults(data);
-        
+
     } catch (error) {
         console.log(error)
         const resultsContainer = document.getElementById('results');
 
         const errorComponent = document.createElement('div');
         errorComponent.innerHTML = `
-        <div class="error-box">
+        <div class="bg-red-100 text-red-700 border border-red-500 rounded p-10 text-center my-20 mx-auto max-w-300">
         <p>Oops! Algo deu errado ao fazer a busca, tente novamente.</p>
         </div>
         `
