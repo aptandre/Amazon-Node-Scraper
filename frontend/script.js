@@ -1,8 +1,27 @@
 document.getElementById('scrapeBtn').addEventListener('click', async () => {
+
     const keyword = document.getElementById('keyword').value;
-    const response = await fetch(`/api/scrape?keyword=${keyword}`);
-    const data = await response.json();
-    displayResults(data);
+
+    try {
+        const response = await fetch(`/amazon-scraper/scrape?keyword=${keyword}`);
+        const data = await response.json();
+
+        displayResults(data);
+        
+    } catch (error) {
+        console.log(error)
+        const resultsContainer = document.getElementById('results');
+
+        const errorComponent = document.createElement('div');
+        errorComponent.innerHTML = `
+        <div class="error-box">
+        <p>Oops! Algo deu errado ao fazer a busca, tente novamente.</p>
+        </div>
+        `
+
+        resultsContainer.appendChild(errorComponent)
+    }
+    
 });
 
 function displayResults(data) {
