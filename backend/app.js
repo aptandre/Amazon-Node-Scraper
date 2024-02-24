@@ -12,7 +12,7 @@ function scrapeData(html) {
 
     $('div[data-component-type="s-search-result"]').each((index, element) => {
         const title = $(element).find('h2').text().trim();
-        const rating = $(element).find('span.a-icon-star-small').text().split(' ')[0];
+        const rating = $(element).find('.a-size-base.s-underline-text').text().split(' ')[0];
         const reviews = $(element).find('span.a-size-base').text().trim();
         const image = $(element).find('img').attr('src');
 
