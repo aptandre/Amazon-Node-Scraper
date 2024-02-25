@@ -18,8 +18,8 @@ function scrapeData(html) {
     // dos elementos no HTML.
     $('div[data-component-type="s-search-result"]').each((index, element) => {
         const title = $(element).find('h2').text().trim();
-        const rating = $(element).find('.a-size-base.s-underline-text').text().split(' ')[0];
-        const reviews = $(element).find('span.a-size-base').text().trim();
+        const rating = $(element).find('.a-icon-star-small .a-icon-alt').text();
+        const reviews = $(element).find('.a-size-base.s-underline-text').text();
         const image = $(element).find('img').attr('src');
 
         // Adição à lista de produtos
@@ -44,14 +44,19 @@ app.get('/amazon-scraper/scrape', async (req, res) => {
     try {
 
         // Utiliza o Axios para fazer a requisição para o servidor da Amazon.
-        const response = await axios.get(url);
+        const response = await axios.get(url, {
+            headers: {
+                Accept: "application/json",
+                "User-Agent": "axios 0.21.1"
+              }
+        });
         // Utiliza a função de scraping acima para construir os dados
         const data = scrapeData(response.data);
         res.json(data);
 
     } catch (error) {
         // Em caso de eror, é retornado um status 500 da aplicação.
-        console.error(error);
+        console.log(error);
         res.status(500).json({ error: 'Fail: an error occured while trying to stablish connection.' });
     }
 
