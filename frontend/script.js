@@ -1,27 +1,34 @@
+// Função para fazer a requisição para a API.
 document.getElementById('scrapeBtn').addEventListener('click', async () => {
 
+    // Pegar a palavra a ser procurada
     const keyword = document.getElementById('keyword').value;
 
+    // Atualizar o componente de carregamento
     const loadingElement = document.getElementById('loading');
     loadingElement.classList.remove('hidden');
 
+    // Atualizar os avisos de erro
     const warningsContainer = document.getElementById('warnings');
     warningsContainer.innerHTML = ""
 
     try {
 
+        // Requisição para o servidor
         const response = await fetch(`http://localhost:3000/amazon-scraper/scrape?keyword=${keyword}`);
         const data = await response.json();
 
+        // Função de disponibilização dos resultados
         displayResults(data);
 
     } catch (error) {
         console.log(error)
 
+        // Em caso de erro, aparece um componente com a mensagem explicando o que aconteceu.
         const errorComponent = document.createElement('div');
         errorComponent.innerHTML = `
 
-        <div class="bg-red-100 text-red-700 border border-red-500 rounded p-10 text-center my-20 mx-auto max-w-300">
+        <div class="bg-red-100 text-red-700 border border-red-500 rounded p-10 text-center my-10 mx-auto max-w-300">
             <p>Oops! Algo deu errado ao fazer a busca, tente novamente.</p>
         </div>
 
@@ -30,20 +37,27 @@ document.getElementById('scrapeBtn').addEventListener('click', async () => {
         warningsContainer.appendChild(errorComponent);
 
     } finally {
+
+        // Atualização do componente de carregamento.
         loadingElement.classList.add('hidden');
     }
 });
 
 function displayResults(data) {
+    // Pegar o componente de carregamento.
     const loadingElement = document.getElementById('loading');
 
+    // Pegar o componente de resultados e limpar o seu valor.
     const resultsContainer = document.getElementById('results');
     resultsContainer.innerHTML = '';
 
+    // Pegar o componente de avisos e limpar o seu valor.
     const warningsContainer = document.getElementById('warnings');
     warningsContainer.innerHTML = "";
 
     try {
+        // Itera pelo array recebido e faz um componente para cada
+        // exibindo os resultados obtidos.
         data.forEach(product => {
             const productDiv = document.createElement('div');
             productDiv.classList.add('product');
@@ -57,16 +71,19 @@ function displayResults(data) {
                     <p class="text-gray-600 mb-4">Reviews: ${product.reviews}</p>
                 </div>
             </div>
-    
+            
             `;
+
             resultsContainer.appendChild(productDiv);
+
         });
     } catch (error) {
 
+        // Em caso de erro, aparece um componente com a mensagem explicando o que aconteceu.
         const errorComponent = document.createElement('div');
         errorComponent.innerHTML = `
 
-        <div class="bg-red-100 text-red-700 border border-red-500 rounded p-10 text-center my-20 mx-auto max-w-300">
+        <div class="bg-red-100 text-red-700 border border-red-500 rounded p-10 text-center my-10 mx-auto max-w-300">
             <p>Ocorreu um erro de comunicação entre o nosso servidor e o servidor da Amazon.</p>
         </div>
 
@@ -75,7 +92,10 @@ function displayResults(data) {
         warningsContainer.appendChild(errorComponent);
 
     } finally {
+
+        // Atualização do componente de carregamento.
         loadingElement.classList.add('hidden');
+
     }
     
 }
