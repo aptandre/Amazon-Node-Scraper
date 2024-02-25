@@ -14,6 +14,11 @@ document.getElementById('scrapeBtn').addEventListener('click', async () => {
 
     try {
 
+        // Tratamento de exceção para palavras vazias.
+        if (!keyword.trim()) {
+            throw new Error('A palavra-chave não pode estar vazia.');
+        }
+
         // Requisição para o servidor
         const response = await fetch(`http://localhost:3000/amazon-scraper/scrape?keyword=${keyword}`);
         const data = await response.json();
@@ -60,17 +65,18 @@ function displayResults(data) {
         // exibindo os resultados obtidos.
         data.forEach(product => {
             const productDiv = document.createElement('div');
-            productDiv.classList.add('product');
+            // productDiv.classList.add('product');
             productDiv.innerHTML = `
 
             <div class="bg-white shadow-md rounded-lg overflow-hidden">
-                <img src="${product.image}" alt="${product.title}" class="w-full h-40 object-cover">
-                <div class="p-4">
-                    <h3 class="text-lg font-bold mb-2">${product.title}</h3>
-                    <p class="text-gray-600 mb-2">Rating: ${product.rating}</p>
-                    <p class="text-gray-600 mb-4">Reviews: ${product.reviews}</p>
-                </div>
+            <img src="${product.image}" alt="${product.title}" class="w-full h-40 object-cover">
+            <div class="p-4">
+                <h3 class="text-lg font-bold mb-2">${product.title}</h3>
+                <p class="text-gray-600 mb-2">Rating: ${product.rating}</p>
+                <p class="text-gray-600 mb-4">Reviews: ${product.reviews}</p>
             </div>
+            </div>
+
             
             `;
 
