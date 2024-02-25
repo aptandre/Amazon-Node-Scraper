@@ -4,6 +4,10 @@ document.getElementById('scrapeBtn').addEventListener('click', async () => {
     // Pegar a palavra a ser procurada
     const keyword = document.getElementById('keyword').value;
 
+    // Pegar e limpar o container de resultados
+    const resultsContainer = document.getElementById('results');
+    resultsContainer.innerHTML = '';
+
     // Atualizar o componente de carregamento
     const loadingElement = document.getElementById('loading');
     loadingElement.classList.remove('hidden');
@@ -65,7 +69,7 @@ function displayResults(data) {
         // exibindo os resultados obtidos.
         data.forEach(product => {
             const productDiv = document.createElement('div');
-            // productDiv.classList.add('product');
+            productDiv.classList.add('product');
             productDiv.innerHTML = `
 
             <div class="bg-white shadow-md rounded-lg overflow-hidden">
@@ -76,7 +80,6 @@ function displayResults(data) {
                 <p class="text-gray-600 mb-4">Reviews: ${product.reviews}</p>
             </div>
             </div>
-
             
             `;
 
