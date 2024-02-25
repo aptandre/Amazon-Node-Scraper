@@ -68,6 +68,7 @@ function displayResults(data) {
         // Itera pelo array recebido e faz um componente para cada
         // exibindo os resultados obtidos.
         data.forEach(product => {
+            console.log(product)
             const productDiv = document.createElement('div');
             productDiv.classList.add('product');
             productDiv.innerHTML = `
@@ -77,7 +78,7 @@ function displayResults(data) {
             <div class="p-4">
                 <h3 class="text-lg font-bold mb-2">${product.title}</h3>
                 <p class="text-gray-600 mb-2">Rating: ${product.rating}</p>
-                <p class="text-gray-600 mb-4">Reviews: ${product.reviews}</p>
+                <p class="text-gray-600 mb-4">Reviews: ${parseInt(product.reviews)} review(s).</p>
             </div>
             </div>
             
