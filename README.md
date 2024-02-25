@@ -16,3 +16,5 @@ Para executar a aplicação, basta clonar este repositório e realizar os seguin
 **1.3** Abrir o arquivo ``index.html``, localizado dentro da pasta ``amazon-scraper/backend`` pode ser aberto tanto por alguma extensão do Visual Studio Code (como, por exemplo, o live server) quanto por algum browser como o Google Chrome, Mozilla Firefox ou Microsoft Edge.
 
 **Após isso, a aplicaçãop deve estar pronta para ser utilizada.**
+
+![alt text](image.png)
